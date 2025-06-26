@@ -1,0 +1,30 @@
+name = "EKRMLE"
+uuid = "a7836c00-d37c-44cb-8664-6650e0b42a14"
+authors = ["pstavrin <pavlos.stavrinides.jr@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+BlockDiagonals = "0a1fb500-61f7-11e9-3c65-f5ef3456f9f0"
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+ColorSchemes = "35d6a980-a343-548e-a6ea-1d62b119f2f4"
+ControlSystems = "a6e380b2-a6ca-5380-bf3e-84a91bcd477e"
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+MAT = "23992714-dd62-5051-b70f-ba57cb901cac"
+ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
+
+[compat]
+BlockDiagonals = "0.2.0"
+CairoMakie = "0.15.1"
+ColorSchemes = "3.29.0"
+ControlSystems = "1.13.1"
+Distributions = "0.25.120"
+LaTeXStrings = "1.4.0"
+LinearAlgebra = "1.11.0"
+MAT = "0.10.7"
+ProgressMeter = "1.10.4"
+Random = "1.11.0"
+StatsBase = "0.34.5"
