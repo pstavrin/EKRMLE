@@ -163,3 +163,132 @@ merge=true,framevisible=false)
 linkyaxes!(ax1,ax2)
 display(fig)
 #save(joinpath("plots", "VSbasis.pdf"), fig)
+
+## Plot means on one panel
+colorsJ = [get(ColorSchemes.magma, t) for t in range(0, stop=1, length=rs+4)][end:-1:1]
+colorsR = [get(ColorSchemes.magma, t) for t in range(0, stop=1, length=js+2)][end:-1:1]
+
+fig1 = Figure(size=(1800,600))
+
+# Mean error vs J
+ax1 = Axis(fig1[1,1],
+    xlabel = L"ensemble size $J$",
+    title = L"\text{Posterior mean error}",
+    yscale = log10, xscale = log10,
+    xlabelsize = 38, ylabelsize = 38, titlesize = 40,
+    xticklabelsize = 38, yticklabelsize = 38,
+)
+
+for j = 1:rs
+    r = Rs[j]
+    lines!(ax1, Js, vec(mean(mu_BTEKI_errs, dims=3)[:, j]),
+        linewidth = 10, color = colorsJ[j+1],
+        label = latexstring("r = $(r)")
+    )
+end
+
+lines!(ax1, Js, vec(mean(mu_EKI_errs, dims=3)),
+    linewidth = 10, color = :black, linestyle = :dash,
+    label = L"\text{Full model}"
+)
+scatter!(ax1, Js, vec(mean(mu_EKI_errs, dims=3)),
+    color = :black, markersize = 30, marker = :circle
+)
+
+axislegend(ax1, position = :lb, labelsize = 38, merge = true, framevisible = false)
+
+# Mean error vs r
+ax2 = Axis(fig1[1,2],
+    xlabel = L"reduced model size $r$",
+    title = L"\text{Posterior mean error}",
+    yscale = log10,
+    xlabelsize = 38, ylabelsize = 0, titlesize = 40,
+    xticklabelsize = 38, yticklabelsize = 0,
+    ylabelvisible = false, yticksvisible = false
+)
+
+for j = 1:js
+    J = Js[j]
+    lines!(ax2, Rs, vec(mean(mu_BTEKI_errs, dims=3)[j, :]),
+        linewidth = 10, color = colorsR[j+1],
+        label = latexstring("J = $(J)")
+    )
+end
+
+lines!(ax2, Rs, vec(mean(mu_BT_errs, dims=3)[1, :]),
+    linewidth = 10, color = :black, linestyle = :dash,
+    label = L"\text{Exact}"
+)
+scatter!(ax2, Rs, vec(mean(mu_BT_errs, dims=3)[1, :]),
+    color = :black, markersize = 30, marker = :circle
+)
+
+axislegend(ax2, position = :lb, labelsize = 38, merge = true, framevisible = false)
+
+linkyaxes!(ax1, ax2)
+display(fig1)
+save("plots/mean_errors.pdf", fig1)
+
+## Plot covariances on second panel
+fig2 = Figure(size=(1800,600))
+
+# Covariance error vs J
+ax1 = Axis(fig2[1,1],
+    xlabel = L"ensemble size $J$",
+    title = L"\text{Posterior covariance error}",
+    yscale = log10, xscale = log10,
+    xlabelsize = 38, ylabelsize = 38, titlesize = 40,
+    xticklabelsize = 38, yticklabelsize = 38,
+)
+
+for j = 1:rs
+    r = Rs[j]
+    lines!(ax1, Js, vec(mean(Gamma_BTEKI_errs, dims=3)[:, j]),
+        linewidth = 10, color = colorsJ[j+1],
+        label = latexstring("r = $(r)")
+    )
+end
+
+lines!(ax1, Js, vec(mean(Gamma_EKI_errs, dims=3)),
+    linewidth = 10, color = :black, linestyle = :dash,
+    label = L"\text{Full model}"
+)
+scatter!(ax1, Js, vec(mean(Gamma_EKI_errs, dims=3)),
+    color = :black, markersize = 30, marker = :circle
+)
+
+axislegend(ax1, position = :lb, labelsize = 38, merge = true, framevisible = false)
+
+# Covariance error vs r
+ax2 = Axis(fig2[1,2],
+    xlabel = L"reduced model size $r$",
+    title = L"\text{Posterior covariance error}",
+    yscale = log10,
+    xlabelsize = 38, ylabelsize = 0, titlesize = 40,
+    xticklabelsize = 38, yticklabelsize = 0,
+    ylabelvisible = false, yticksvisible = false
+)
+
+for j = 1:js
+    J = Js[j]
+    lines!(ax2, Rs, vec(mean(Gamma_BTEKI_errs, dims=3)[j, :]),
+        linewidth = 10, color = colorsR[j+1],
+        label = latexstring("J = $(J)")
+    )
+end
+
+lines!(ax2, Rs, vec(mean(Gamma_BT_errs, dims=3)[1, :]),
+    linewidth = 10, color = :black, linestyle = :dash,
+    label = L"\text{Exact}"
+)
+scatter!(ax2, Rs, vec(mean(Gamma_BT_errs, dims=3)[1, :]),
+    color = :black, markersize = 30, marker = :circle
+)
+
+axislegend(ax2, position = :lb, labelsize = 38, merge = true, framevisible = false)
+
+linkyaxes!(ax1, ax2)
+display(fig2)
+save("plots/cov_errors.pdf", fig2)
+
+

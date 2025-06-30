@@ -49,10 +49,11 @@ fig = Figure(size=(900,750))
 
 ax1 = Axis(fig[1,1];
     xlabel=L"Iterations $i$",
-    title=L"\mathrm{E}[\text{\textbf{h}}_i^{(1:J)}] \text{ error (large)}",
+    ylabel=L"\mathrm{E}[\text{\textbf{h}}_i^{(1:J)}] \text{ error}",
+    title=L"\text{Large ensemble}",
     yscale=log10,
     xlabelsize = 0,
-    ylabelsize = 28,
+    ylabelsize = 30,
     titlesize = 30,
     xticklabelsize = 0,
     yticklabelsize = 28,
@@ -60,18 +61,19 @@ ax1 = Axis(fig[1,1];
 
 ax2 = Axis(fig[2,1];
     xlabel=L"Iterations $i$",
-    title=L"\mathrm{E}[\text{\textbf{v}}_i^{(1:J)}] \text{ error (large)}",
+    ylabel=L"\mathrm{E}[\text{\textbf{v}}_i^{(1:J)}] \text{ error }",
+    title=L"\text{Small ensemble}",
     yscale=log10,
     xlabelsize = 28,
-    ylabelsize = 28,
-    titlesize = 30,
+    ylabelsize = 30,
+    titlesize = 0,
     xticklabelsize = 28,
     yticklabelsize = 28,
 )
 
 ax3 = Axis(fig[1,2];
     xlabel=L"Iterations $i$",
-    title=L"\mathrm{E}[\text{\textbf{h}}_i^{(1:J)}] \text{ error (small)}",
+    title=L"\text{Small ensemble}",
     yscale=log10,
     ylabelvisible = false,
     yticksvisible = true,
@@ -90,7 +92,7 @@ ax4 = Axis(fig[2,2];
     yticksvisible = true,
     xlabelsize = 28,
     ylabelsize = 28,
-    titlesize = 30,
+    titlesize = 0,
     xticklabelsize = 28,
     yticklabelsize = 0,
 )
@@ -116,35 +118,37 @@ linkyaxes!(ax1, ax3)
 linkyaxes!(ax2, ax4)
 
 display(fig)
-#save(joinpath("plots", "misfit_means.pdf"), fig)
+save("plots/misfit_means.pdf", fig)
 
 ## Fig 2
 fig = Figure(size=(900,750))
 ax1 = Axis(fig[1,1],
     xlabel=L"Iterations $i$",
-    title=L"\mathrm{Cov}[\text{\textbf{h}}_i^{(1:J)}] \text{ error (large)}",
+    ylabel=L"\mathrm{Cov}[\text{\textbf{h}}_i^{(1:J)}] \text{ error}",
+    title=L" \text{Large ensemble}",
     #ylabel=L"λ_i",
     yscale=log10,
     xlabelsize = 0,
-    ylabelsize = 28,
+    ylabelsize = 30,
     titlesize = 30,
     xticklabelsize = 0,
     yticklabelsize = 28,
 )
 ax2 = Axis(fig[2,1],
     xlabel=L"Iterations $i$",
-    title=L"\mathrm{Cov}[\text{\textbf{v}}_i^{(1:J)}] \text{ error (large)}",
+    ylabel=L"\mathrm{Cov}[\text{\textbf{v}}_i^{(1:J)}] \text{ error}",
+    title=L"\text{ error (large)}",
     #ylabel=L"λ_i",
     yscale=log10,
     xlabelsize = 28,
-    ylabelsize = 28,
-    titlesize = 30,
+    ylabelsize = 30,
+    titlesize = 0,
     xticklabelsize = 28,
     yticklabelsize = 28,
 )
 ax3 = Axis(fig[1,2],
     xlabel=L"Iterations $i$",
-    title=L"\mathrm{Cov}[\text{\textbf{h}}_i^{(1:J)}] \text{ error (small)}",
+    title=L"\text{Small ensemble}",
     #ylabel=L"λ_i",
     yscale=log10,
     xlabelsize = 0,
@@ -160,7 +164,7 @@ ax4 = Axis(fig[2,2],
     yscale=log10,
     xlabelsize = 28,
     ylabelsize = 0,
-    titlesize = 30,
+    titlesize = 0,
     xticklabelsize = 28,
     yticklabelsize = 0,
 )
@@ -190,4 +194,4 @@ axislegend(ax4, position =:rt, labelsize = 28, framevisible=false)
 linkyaxes!(ax1, ax3)
 linkyaxes!(ax2, ax4)
 display(fig)
-#save(joinpath("plots", "misfit_covs.pdf"), fig)
+save(joinpath("plots", "misfit_covs.pdf"), fig)
