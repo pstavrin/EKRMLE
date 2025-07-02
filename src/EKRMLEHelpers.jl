@@ -238,6 +238,21 @@ struct misfits{T<:AbstractArray}
     bbS::misfitPair{T} # 𝕊
 end
 
+function normalized_proj_error(A, limit, P)
+    J = size(A, 2)
+    numerators = P*(A - limit) 
+    denominators = P*limit
+    rel_errors = [norm(numerators[:, j]) / norm(denominators[:, j]) for j in 1:J]
+    return mean(rel_errors)
+end
+
+function proj_error(A, limit, P)
+    J = size(A, 2)
+    numerators = P*(A - limit) 
+    rel_errors = [norm(numerators[:, j]) for j in 1:J]
+    return mean(rel_errors)
+end
+
 
 function getLimitMisfits(ỹ,V,iters,H,Σ,Γ,Hₚ,𝒫,𝒮,ℙ,𝕊)
     # Computes all misfits and stores them in a misfits struct
@@ -259,7 +274,7 @@ function getLimitMisfits(ỹ,V,iters,H,Σ,Γ,Hₚ,𝒫,𝒮,ℙ,𝕊)
     𝒫hnorm = norm(mean(𝒫hinf,dims=2))
 
     𝒮hinf = 𝒮*h_inf
-    𝒮norm = norm(mean(𝒮*h₀ - 𝒮hinf,dims=2))
+    𝒮norm = proj_error(h₀,h_inf,𝒮)
     𝒮covnorm = opnorm(𝒮*H*Γ[:,:,1]*H'𝒮'-𝒮*HGH_inf*𝒮')
 
     ℙvinf = ℙ*v_inf
@@ -268,19 +283,21 @@ function getLimitMisfits(ỹ,V,iters,H,Σ,Γ,Hₚ,𝒫,𝒮,ℙ,𝕊)
     ℙvnorm = norm(mean(ℙvinf,dims=2))
 
 
-    𝕊norm = norm(mean(𝕊*v₀ - 𝕊*v_inf,dims=2))
+    𝕊norm = normalized_proj_error(v₀, v_inf, 𝕊)
     𝕊covnorm = opnorm(𝕊*Γ[:,:,1]*𝕊'-𝕊*Γ_inf*𝕊')
 
 
     for i = 1 : iters
         hᵢ = H*V[:,:,i]
         vᵢ = V[:,:,i]
-        𝒫norms[i] = norm(mean(𝒫*hᵢ - 𝒫hinf,dims=2))/𝒫hnorm
+        𝒫norms[i] = normalized_proj_error(hᵢ,h_inf,𝒫)
+        #𝒫norms[i] = norm(mean(𝒫*hᵢ - 𝒫hinf,dims=2))/𝒫hnorm
         𝒫covnorms[i] = opnorm(𝒫*H*Γ[:,:,i]*H'𝒫'-
                                     𝒫HGH)/𝒫HGHnorm
         𝒮norms[i] = 𝒮norm
         𝒮covnorms[i] = 𝒮covnorm
-        ℙnorms[i] = norm(mean(ℙ*vᵢ - ℙvinf,dims=2))/ℙvnorm
+        ℙnorms[i] = normalized_proj_error(vᵢ,v_inf,ℙ)
+        #ℙnorms[i] = norm(mean(ℙ*vᵢ - ℙvinf,dims=2))/ℙvnorm
         ℙcovnorms[i] = opnorm(ℙ*Γ[:,:,i]*ℙ'-
                                 ℙΓ)/ℙΓnorm
         𝕊norms[i] = 𝕊norm

@@ -173,7 +173,7 @@ fig1 = Figure(size=(1800,600))
 # Mean error vs J
 ax1 = Axis(fig1[1,1],
     xlabel = L"ensemble size $J$",
-    title = L"\text{Posterior mean error}",
+    title = L"\text{Relative posterior mean error}",
     yscale = log10, xscale = log10,
     xlabelsize = 38, ylabelsize = 38, titlesize = 40,
     xticklabelsize = 38, yticklabelsize = 38,
@@ -200,7 +200,7 @@ axislegend(ax1, position = :lb, labelsize = 38, merge = true, framevisible = fal
 # Mean error vs r
 ax2 = Axis(fig1[1,2],
     xlabel = L"reduced model size $r$",
-    title = L"\text{Posterior mean error}",
+    title = L"\text{Relative posterior mean error}",
     yscale = log10,
     xlabelsize = 38, ylabelsize = 0, titlesize = 40,
     xticklabelsize = 38, yticklabelsize = 0,
@@ -235,7 +235,7 @@ fig2 = Figure(size=(1800,600))
 # Covariance error vs J
 ax1 = Axis(fig2[1,1],
     xlabel = L"ensemble size $J$",
-    title = L"\text{Posterior covariance error}",
+    title = L"\text{Relative posterior covariance error}",
     yscale = log10, xscale = log10,
     xlabelsize = 38, ylabelsize = 38, titlesize = 40,
     xticklabelsize = 38, yticklabelsize = 38,
@@ -262,7 +262,7 @@ axislegend(ax1, position = :lb, labelsize = 38, merge = true, framevisible = fal
 # Covariance error vs r
 ax2 = Axis(fig2[1,2],
     xlabel = L"reduced model size $r$",
-    title = L"\text{Posterior covariance error}",
+    title = L"\text{Relative posterior covariance error}",
     yscale = log10,
     xlabelsize = 38, ylabelsize = 0, titlesize = 40,
     xticklabelsize = 38, yticklabelsize = 0,
