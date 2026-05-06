@@ -1,0 +1,8 @@
+# Ignore figures
+*.pdf
+*.svg
+*.png
+*.mp4
+
+# Ignore Julia environment lock file
+Manifest*.toml
