@@ -25,3 +25,16 @@ Pkg.activate(".")
 ```julia
 Pkg.instantiate()
 ```
+
+## Contents
+
+### Algorithms
+* `EKRMLEHelpers.jl`: EKRMLE algorithm
+* `EKI.jl`: classical EKI algorithm (determinisitc & stochastic)
+
+### Scripts
+* `LinearConvergence.jl`: EKRMLE applied to a random linear problem with illustration of convergence in the appropriate convergent subspaces $\mathrm{ran}(\mathbf{P})$ and $\mathrm{ran}(\mathbf{\mathcal{P}})$
+* `HeatEq2D.jl`: EKRMLE applied to a Bayesian inverse problem arising from a 2D heat equation. BT-accelerated EKRMLE also illustrated here.
+* `HeatEq2DBT.jl`: experimental routine for study of EKRMLE applied to a 2D heat equation Bayesian inverse problem with varying ensemble sizes and reduced model ranks.
+* `Darcy2D.jl`: EKRMLE applied to a nonlinear Bayesian inverse problem arising from Darcy flow. Comparisons with EKI (deterministic & stochastic) also shown here.
+* `plotBT.jl`: plots BT results and recreates all relevant figures.
