@@ -9,3 +9,19 @@ Julia code that implements the EKRMLE algorithm, and reproduces all numerical ex
 git clone https://github.com/pstavrin/EKRMLE.git
 cd EKRMLE
 ```
+
+### Start Julia in project directory
+```bash
+julia
+```
+
+### Activate environment
+```julia
+using Pkg
+Pkg.activate(".")
+```
+
+### Install dependencies
+```julia
+Pkg.instantiate()
+```
