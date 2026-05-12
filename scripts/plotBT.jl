@@ -1,14 +1,6 @@
 using EKRMLE
-using LinearAlgebra
 using CairoMakie
-using PolynomialModelReductionDataset: Heat2DModel, integrate_model_fast, build_fast_be_solver, FastDenseSolver
-using UniqueKronecker: invec
-using Random
-using Distributions
-using MatrixEquations
 using ColorSchemes
-using SparseArrays
-using ProgressMeter
 using JLD2
 using Dates
 using LaTeXStrings

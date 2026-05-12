@@ -1,4 +1,4 @@
-using EnsembleKalmanRMLE
+using EKRMLE
 using LinearAlgebra
 using CairoMakie
 using PolynomialModelReductionDataset: Heat2DModel, integrate_model_fast, build_fast_be_solver, FastDenseSolver
@@ -173,7 +173,7 @@ Hhat_of_v, HRLShat_s_imp, red_solver = build_reduced_HRLS_operator(
 )
 
 ##
-J = 50_000
+J = 10_000
 V0 = rand(MvNormal(vec(zeros(heat.d, 1)), Symmetric(heat.Γpr)), J)
 ekrmleobjBT = EKRMLEObj(V0, yRLS, ΓRLS)
 steps = 25

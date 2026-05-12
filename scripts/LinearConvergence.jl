@@ -1,4 +1,4 @@
-using EnsembleKalmanRMLE
+using EKRMLE
 using LinearAlgebra
 using CairoMakie
 using Random
@@ -21,7 +21,7 @@ end
 ## Setup
 n = 500
 d = 1000
-J = 100000
+J = 10000
 prob = randomLinearProblemObj(n, d, J)
 
 ## Errors
@@ -120,7 +120,7 @@ V0 = prob.V0
 steps = 100
 obj = EKRMLEObj(V0, prob.y, prob.Γ)
 H_s(prob::randomLinearProblemObj, v::AbstractVector) = prob.H * v # forward map
-#EKRMLE_run!(obj, prob, H_s, steps); # run algorithm
+EKRMLE_run!(obj, prob, H_s, steps); # run algorithm
 
 ## Spectral projectors
 projectors = spectralproj(prob, _samplecov(V0))
@@ -198,7 +198,7 @@ function run_ensemble_size_study(prob, ensemble_sizes; steps=100)
 end
 
 ## run experiment
-ensemble_sizes = [10, 100, 1000, 5000, 10000, 50000]
+ensemble_sizes = [10, 100, 1000, 10000]
 
 results = run_ensemble_size_study(prob, ensemble_sizes; steps=100)
 
@@ -227,9 +227,7 @@ ax1 = Axis(fig[1,1];
 lines!(ax1, X, vec(results[10].calP_mean_errors), label=L"J=10", color=colors[2], linewidth=7)
 lines!(ax1, X, vec(results[100].calP_mean_errors), label=L"J=100", color=colors[3], linewidth=7)
 lines!(ax1, X, vec(results[1000].calP_mean_errors), label=L"J=1000", color=colors[4], linewidth=7)
-lines!(ax1, X, vec(results[5000].calP_mean_errors), label=L"J=5000", color=colors[5], linewidth=7)
 lines!(ax1, X, vec(results[10000].calP_mean_errors), label=L"J=10000", color=colors[6], linewidth=7)
-lines!(ax1, X, vec(results[50000].calP_mean_errors), label=L"J=50000", color=colors[7], linewidth=7)
 #axislegend(ax1, position=:lb, labelsize=28, framevisible=false)
 
 ax2 = Axis(fig[1,2];
@@ -249,9 +247,7 @@ ax2 = Axis(fig[1,2];
 lines!(ax2, X, vec(results[10].calP_cov_errors), label=L"J=10", color=colors[2], linewidth=7)
 lines!(ax2, X, vec(results[100].calP_cov_errors), label=L"J=100", color=colors[3], linewidth=7)
 lines!(ax2, X, vec(results[1000].calP_cov_errors), label=L"J=1000", color=colors[4], linewidth=7)
-lines!(ax2, X, vec(results[5000].calP_cov_errors), label=L"J=5000", color=colors[5], linewidth=7)
 lines!(ax2, X, vec(results[10000].calP_cov_errors), label=L"J=10000", color=colors[6], linewidth=7)
-lines!(ax2, X, vec(results[50000].calP_cov_errors), label=L"J=50000", color=colors[7], linewidth=7)
 axislegend(ax2, position=:lb, labelsize=25, framevisible=false)
 
 
@@ -272,9 +268,7 @@ ax3 = Axis(fig[2,1];
 lines!(ax3, X, vec(results[10].P_mean_errors), label=L"J=10", color=colors[2], linewidth=7)
 lines!(ax3, X, vec(results[100].P_mean_errors), label=L"J=100", color=colors[3], linewidth=7)
 lines!(ax3, X, vec(results[1000].P_mean_errors), label=L"J=1000", color=colors[4], linewidth=7)
-lines!(ax3, X, vec(results[5000].P_mean_errors), label=L"J=5000", color=colors[5], linewidth=7)
 lines!(ax3, X, vec(results[10000].P_mean_errors), label=L"J=10000", color=colors[6], linewidth=7)
-lines!(ax3, X, vec(results[50000].P_mean_errors), label=L"J=50000", color=colors[7], linewidth=7)
 #axislegend(ax3, position=:lb, labelsize=28, framevisible=false)
 
 ax4 = Axis(fig[2,2];
@@ -294,9 +288,7 @@ ax4 = Axis(fig[2,2];
 lines!(ax4, X, vec(results[10].P_cov_errors), label=L"J=10", color=colors[2], linewidth=7)
 lines!(ax4, X, vec(results[100].P_cov_errors), label=L"J=100", color=colors[3], linewidth=7)
 lines!(ax4, X, vec(results[1000].P_cov_errors), label=L"J=1000", color=colors[4], linewidth=7)
-lines!(ax4, X, vec(results[5000].P_cov_errors), label=L"J=5000", color=colors[5], linewidth=7)
 lines!(ax4, X, vec(results[10000].P_cov_errors), label=L"J=10000", color=colors[6], linewidth=7)
-lines!(ax4, X, vec(results[50000].P_cov_errors), label=L"J=50000", color=colors[7], linewidth=7)
 #axislegend(ax4, position=:lb, labelsize=28, framevisible=false)
 
 linkyaxes!(ax1, ax2)

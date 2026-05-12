@@ -1,4 +1,4 @@
-using EnsembleKalmanRMLE
+using EKRMLE
 using LinearAlgebra
 using Random
 using CairoMakie

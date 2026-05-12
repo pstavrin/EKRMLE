@@ -10,7 +10,6 @@ CairoMakie.activate!()
 mc_results = load("data/mc_results_BT.jld2")
 
 ## Process data
-##
 Js = mc_results["Js"]
 Rs = mc_results["Rs"]
 
@@ -29,6 +28,9 @@ nJ = length(Js)
 nR = length(Rs)
 
 ## Plot left panel of runtime plot only
+# Colors by reduced rank
+colorsR = [get(ColorSchemes.magma, t) for t in range(0, stop=1, length=nR+1)]
+colorsR = colorsR[end:-1:1]
 fig = Figure(size=(900, 600))
 
 

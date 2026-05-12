@@ -1,4 +1,4 @@
-using EnsembleKalmanRMLE
+using EKRMLE
 using LinearAlgebra
 using CairoMakie
 using PolynomialModelReductionDataset: Heat2DModel, integrate_model_fast, build_fast_be_solver, FastDenseSolver
