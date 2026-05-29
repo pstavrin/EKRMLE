@@ -30,7 +30,7 @@ Pkg.instantiate()
 
 ### Algorithms
 * `EKRMLEHelpers.jl`: EKRMLE algorithm
-* `EKI.jl`: classical EKI algorithm (determinisitc & stochastic)
+* `EKI.jl`: classical EKI algorithm (deterministic & stochastic)
 
 ### Scripts
 * `LinearConvergence.jl`: EKRMLE applied to a random linear problem with illustration of convergence in the appropriate convergent subspaces.
