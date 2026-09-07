@@ -123,9 +123,12 @@ logk_sEKI = get_logk_2D(darcy, μ_sEKI)
 allvals = vcat(vec(darcy.logk_2d), vec(logk_EKRMLE), vec(logk_EKI), vec(logk_sEKI))
 crange = extrema(allvals)
 
+allvalsperm = vcat(vec(exp.(darcy.logk_2d)), vec(exp.(logk_EKRMLE)), vec(exp.(logk_EKI)), vec(exp.(logk_sEKI)))
+crangeperm = extrema(allvalsperm)
+
 # If your field lives on a regular grid, adapt x/y as needed.
 # For many Darcy setups, just plotting the matrix directly is enough.
-fig = themed_figure(; dark=false, size=(1900, 500)) do fig
+fig = themed_figure(; dark=false, size=(1900, 1000)) do fig
 
     ax0 = Axis(fig[1, 1],
         title = L"\text{truth}",
@@ -163,6 +166,38 @@ fig = themed_figure(; dark=false, size=(1900, 500)) do fig
     hidexdecorations!(ax3, grid=false)
     
     Colorbar(fig[1, 5], hm0, width=30, ticklabelsize = 25)
+
+    
+    colgap!(fig.layout, 20)
+
+    ax00 = Axis(fig[2, 1],
+    )
+
+    ax11 = Axis(fig[2, 2],
+    )
+
+    ax22 = Axis(fig[2, 3],
+    )
+
+    ax33 = Axis(fig[2, 4],
+    )
+
+    hm00 = heatmap!(ax00, exp.(darcy.logk_2d); colormap=:magma, colorrange=crangeperm)
+    hm11 = heatmap!(ax11, exp.(logk_EKRMLE); colormap=:magma, colorrange=crangeperm)
+    hm22 = heatmap!(ax22, exp.(logk_EKI);    colormap=:magma, colorrange=crangeperm)
+    hm33 = heatmap!(ax33, exp.(logk_sEKI);   colormap=:magma, colorrange=crangeperm)
+
+    hideydecorations!(ax00, grid=false)
+    hideydecorations!(ax11, grid=false)
+    hideydecorations!(ax22, grid=false)
+    hideydecorations!(ax33, grid=false)
+
+    hidexdecorations!(ax00, grid=false)
+    hidexdecorations!(ax11, grid=false)
+    hidexdecorations!(ax22, grid=false)
+    hidexdecorations!(ax33, grid=false)
+    
+    Colorbar(fig[2, 5], hm00, width=30, ticklabelsize = 25)
 
     
     colgap!(fig.layout, 20)
