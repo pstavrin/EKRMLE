@@ -227,7 +227,7 @@ fig = themed_figure(; dark=false, size=(1900, 1000)) do fig
     fig
 end
 
-save("plots/Darcy_2D_sbs.pdf",fig)
+#save("plots/Darcy_2D_sbs.pdf",fig)
 
 
 ## field generated from forward evaluations
@@ -554,4 +554,4 @@ fig = themed_figure(; dark=false, size=(1200, 350)) do fig
 end
 
 display(fig)
-save("plots/Darcy_2D_uncertain.pdf",fig)
+#save("plots/Darcy_2D_uncertain.pdf",fig)
