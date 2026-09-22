@@ -198,17 +198,17 @@ fig = themed_figure(; dark=false, size=(1900, 1000)) do fig
     )
 
     hm11 = heatmap!(ax11, err_EKRMLE;
-        colormap = :magma,
+        colormap = :viridis,
         colorrange = crange_err,
     )
 
     hm22 = heatmap!(ax22, err_EKI;
-        colormap = :magma,
+        colormap = :viridis,
         colorrange = crange_err,
     )
 
     hm33 = heatmap!(ax33, err_sEKI;
-        colormap = :magma,
+        colormap = :viridis,
         colorrange = crange_err,
     )
 
